@@ -1,6 +1,6 @@
 name: Ak concurrency: 
 
-on:
+on:ak
   push:
     branches: [ "main" ]
   pull_request:
