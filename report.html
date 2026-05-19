@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code of Conduct Incident Report — W3C Positive Work Environment</title>
+    <style>
+      /* ---- Reset & Base ---- */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #1a1a1a;
+        background: #f5f5f5;
+        padding: 2rem 1rem;
+      }
+
+      /* ---- Layout ---- */
+      .page-wrapper {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+
+      /* ---- Header ---- */
+      header {
+        background: #005a9c;
+        color: #fff;
+        padding: 1.5rem 2rem;
+        border-radius: 4px 4px 0 0;
+      }
+
+      header .w3c-logo {
+        display: inline-block;
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+
+      header h1 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        line-height: 1.3;
+      }
+
+      header p {
+        font-size: 0.9rem;
+        margin-top: 0.4rem;
+        opacity: 0.9;
+      }
+
+      /* ---- Main card ---- */
+      .card {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        padding: 2rem;
+      }
+
+      /* ---- Info banner ---- */
+      .info-banner {
+        background: #e8f0fb;
+        border-left: 4px solid #005a9c;
+        border-radius: 2px;
+        padding: 0.9rem 1rem;
+        margin-bottom: 1.8rem;
+        font-size: 0.92rem;
+      }
+
+      .info-banner a {
+        color: #005a9c;
+      }
+
+      /* ---- Section headings ---- */
+      .form-section {
+        margin-bottom: 2rem;
+      }
+
+      .form-section legend,
+      .form-section h2 {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #005a9c;
+        border-bottom: 2px solid #005a9c;
+        padding-bottom: 0.3rem;
+        margin-bottom: 1rem;
+        display: block;
+        width: 100%;
+      }
+
+      /* ---- Form elements ---- */
+      .field {
+        margin-bottom: 1.2rem;
+      }
+
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+        font-size: 0.95rem;
+      }
+
+      label .required {
+        color: #c00;
+        margin-left: 2px;
+        font-size: 0.85em;
+      }
+
+      label .hint {
+        font-weight: 400;
+        color: #555;
+        font-size: 0.85em;
+        display: block;
+        margin-top: 1px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="date"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 0.55rem 0.75rem;
+        border: 1px solid #aaa;
+        border-radius: 3px;
+        font-size: 0.95rem;
+        font-family: inherit;
+        color: #1a1a1a;
+        background: #fff;
+        transition: border-color 0.15s, box-shadow 0.15s;
+      }
+
+      input[type="text"]:focus,
+      input[type="email"]:focus,
+      input[type="date"]:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #005a9c;
+        box-shadow: 0 0 0 3px rgba(0,90,156,0.2);
+      }
+
+      input.invalid,
+      select.invalid,
+      textarea.invalid {
+        border-color: #c00;
+        box-shadow: 0 0 0 3px rgba(204,0,0,0.15);
+      }
+
+      .field-error {
+        color: #c00;
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+        display: none;
+      }
+
+      .field-error.visible {
+        display: block;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      /* ---- Checkbox / Radio groups ---- */
+      .check-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+        margin-top: 0.2rem;
+      }
+
+      .check-group label {
+        font-weight: 400;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        cursor: pointer;
+      }
+
+      .check-group input[type="checkbox"],
+      .check-group input[type="radio"] {
+        width: auto;
+        margin-top: 3px;
+        flex-shrink: 0;
+        accent-color: #005a9c;
+      }
+
+      /* ---- Privacy toggle ---- */
+      .privacy-toggle {
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 0.8rem 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .privacy-toggle label {
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        cursor: pointer;
+      }
+
+      .privacy-toggle input[type="checkbox"] {
+        width: auto;
+        accent-color: #005a9c;
+        width: 1.1em;
+        height: 1.1em;
+      }
+
+      #contact-fields {
+        transition: opacity 0.2s;
+      }
+
+      #contact-fields.hidden {
+        display: none;
+      }
+
+      /* ---- Buttons ---- */
+      .btn-row {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        margin-top: 1.5rem;
+      }
+
+      button {
+        padding: 0.6rem 1.4rem;
+        font-size: 0.95rem;
+        font-family: inherit;
+        border-radius: 3px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        font-weight: 600;
+        transition: background 0.15s, color 0.15s, border-color 0.15s;
+      }
+
+      button[type="submit"] {
+        background: #005a9c;
+        color: #fff;
+        border-color: #005a9c;
+      }
+
+      button[type="submit"]:hover {
+        background: #004477;
+        border-color: #004477;
+      }
+
+      button[type="reset"] {
+        background: #fff;
+        color: #005a9c;
+        border-color: #005a9c;
+      }
+
+      button[type="reset"]:hover {
+        background: #e8f0fb;
+      }
+
+      /* ---- Success / Error states ---- */
+      #form-messages {
+        margin-top: 1.5rem;
+        border-radius: 3px;
+        padding: 1rem 1.2rem;
+        font-size: 0.95rem;
+        display: none;
+      }
+
+      #form-messages.success {
+        display: block;
+        background: #e6f4ea;
+        border: 1px solid #34a853;
+        color: #1e6e37;
+      }
+
+      #form-messages.error {
+        display: block;
+        background: #fdecea;
+        border: 1px solid #c00;
+        color: #c00;
+      }
+
+      /* ---- Confirmation screen ---- */
+      #confirmation-screen {
+        display: none;
+        text-align: center;
+        padding: 2rem 1rem;
+      }
+
+      #confirmation-screen.visible {
+        display: block;
+      }
+
+      .check-icon {
+        font-size: 3.5rem;
+        line-height: 1;
+        margin-bottom: 1rem;
+      }
+
+      #confirmation-screen h2 {
+        font-size: 1.4rem;
+        color: #005a9c;
+        margin-bottom: 0.5rem;
+      }
+
+      #confirmation-screen p {
+        color: #444;
+        max-width: 480px;
+        margin: 0 auto 1rem;
+      }
+
+      #confirmation-screen .ref-number {
+        display: inline-block;
+        background: #e8f0fb;
+        border: 1px solid #c0d4f0;
+        border-radius: 3px;
+        padding: 0.3rem 0.8rem;
+        font-family: monospace;
+        font-size: 1rem;
+        letter-spacing: 0.05em;
+        margin: 0.5rem 0 1.2rem;
+      }
+
+      #confirmation-screen button {
+        background: #005a9c;
+        color: #fff;
+        border-color: #005a9c;
+      }
+
+      #confirmation-screen button:hover {
+        background: #004477;
+        border-color: #004477;
+      }
+
+      /* ---- Progress indicator ---- */
+      .progress-bar-wrap {
+        background: #e0e0e0;
+        border-radius: 99px;
+        height: 6px;
+        margin-bottom: 1.8rem;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        background: #005a9c;
+        height: 100%;
+        width: 0%;
+        border-radius: 99px;
+        transition: width 0.3s ease;
+      }
+
+      /* ---- Character counter ---- */
+      .char-count {
+        text-align: right;
+        font-size: 0.8rem;
+        color: #777;
+        margin-top: 3px;
+      }
+
+      /* ---- Footer ---- */
+      footer {
+        text-align: center;
+        font-size: 0.82rem;
+        color: #666;
+        margin-top: 1.5rem;
+        line-height: 1.5;
+      }
+
+      footer a { color: #005a9c; }
+
+      /* ---- Responsive ---- */
+      @media (max-width: 540px) {
+        header { padding: 1.2rem 1.2rem; }
+        .card   { padding: 1.2rem; }
+        .btn-row { justify-content: stretch; }
+        button  { flex: 1; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrapper">
+
+      <header>
+        <div class="w3c-logo">W3C</div>
+        <h1>Code of Conduct Incident Report</h1>
+        <p>Positive Work Environment Community Group &mdash; confidential reporting tool</p>
+      </header>
+
+      <div class="card">
+
+        <!-- Info banner -->
+        <div class="info-banner" role="note">
+          This form lets you report concerns under the
+          <a href="https://www.w3.org/policies/code-of-conduct/" target="_blank" rel="noopener">
+            W3C Code of Ethics and Professional Conduct</a>.
+          All reports are handled with care. You may submit anonymously.
+          For emergencies, please contact venue security or local authorities directly.
+        </div>
+
+        <!-- Completion progress -->
+        <div class="progress-bar-wrap" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Form completion">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <!-- ===== REPORT FORM ===== -->
+        <form id="report-form" novalidate>
+
+          <!-- Section 1: Reporter info -->
+          <fieldset class="form-section">
+            <legend>1. Your Information</legend>
+
+            <div class="privacy-toggle">
+              <label>
+                <input type="checkbox" id="anonymous-toggle">
+                Submit anonymously (your name and email will not be collected)
+              </label>
+            </div>
+
+            <div id="contact-fields">
+              <div class="field">
+                <label for="reporter-name">
+                  Full name
+                  <span class="hint">How you would like to be addressed in follow-up communications</span>
+                </label>
+                <input type="text" id="reporter-name" name="reporter_name" autocomplete="name" placeholder="e.g. Jane Smith">
+                <div class="field-error" id="reporter-name-error">Please enter your name or tick the anonymous option above.</div>
+              </div>
+
+              <div class="field">
+                <label for="reporter-email">
+                  Email address <span class="required" aria-label="required">*</span>
+                  <span class="hint">Required for follow-up unless you submit anonymously</span>
+                </label>
+                <input type="email" id="reporter-email" name="reporter_email" autocomplete="email" placeholder="you@example.com">
+                <div class="field-error" id="reporter-email-error">Please enter a valid email address or tick the anonymous option above.</div>
+              </div>
+
+              <div class="field">
+                <label for="reporter-affiliation">
+                  Affiliation / organization
+                  <span class="hint">Optional — helps us understand the context</span>
+                </label>
+                <input type="text" id="reporter-affiliation" name="reporter_affiliation" placeholder="e.g. Example Corp, W3C member">
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Section 2: Incident details -->
+          <fieldset class="form-section">
+            <legend>2. Incident Details</legend>
+
+            <div class="field">
+              <label for="incident-date">
+                Date of incident <span class="required" aria-label="required">*</span>
+              </label>
+              <input type="date" id="incident-date" name="incident_date" required>
+              <div class="field-error" id="incident-date-error">Please provide the date the incident occurred.</div>
+            </div>
+
+            <div class="field">
+              <label for="incident-location">
+                Location / context <span class="required" aria-label="required">*</span>
+                <span class="hint">e.g. TPAC 2024, mailing list, GitHub issue #123, IRC channel #webapps</span>
+              </label>
+              <input type="text" id="incident-location" name="incident_location" placeholder="Where did this happen?" required>
+              <div class="field-error" id="incident-location-error">Please describe where or in what context the incident occurred.</div>
+            </div>
+
+            <div class="field">
+              <label>Type of behavior <span class="required" aria-label="required">*</span></label>
+              <div class="check-group" id="behavior-types">
+                <label><input type="checkbox" name="behavior_type" value="harassment"> Harassment or intimidation</label>
+                <label><input type="checkbox" name="behavior_type" value="discrimination"> Discrimination (race, gender, disability, religion, etc.)</label>
+                <label><input type="checkbox" name="behavior_type" value="unwanted_contact"> Unwanted contact or communication</label>
+                <label><input type="checkbox" name="behavior_type" value="privacy_violation"> Privacy violation or doxxing</label>
+                <label><input type="checkbox" name="behavior_type" value="retaliation"> Retaliation for raising a concern</label>
+                <label><input type="checkbox" name="behavior_type" value="other"> Other (describe below)</label>
+              </div>
+              <div class="field-error" id="behavior-type-error">Please select at least one type of behavior.</div>
+            </div>
+
+            <div class="field">
+              <label for="incident-description">
+                Description of the incident <span class="required" aria-label="required">*</span>
+                <span class="hint">Describe what happened, including any relevant context. Do not include sensitive personal data beyond what is necessary.</span>
+              </label>
+              <textarea id="incident-description" name="incident_description" maxlength="3000" required placeholder="Please describe the incident as clearly as possible…"></textarea>
+              <div class="char-count"><span id="desc-count">0</span> / 3000 characters</div>
+              <div class="field-error" id="incident-description-error">Please provide a description of the incident (at least 20 characters).</div>
+            </div>
+
+            <div class="field">
+              <label for="parties-involved">
+                Parties involved
+                <span class="hint">Names, usernames, or roles of those involved. Leave blank if unknown or if you prefer not to say.</span>
+              </label>
+              <textarea id="parties-involved" name="parties_involved" maxlength="500" placeholder="Optional — names or identifiers of individuals involved"></textarea>
+            </div>
+          </fieldset>
+
+          <!-- Section 3: Witnesses & evidence -->
+          <fieldset class="form-section">
+            <legend>3. Witnesses &amp; Evidence</legend>
+
+            <div class="field">
+              <label for="witnesses">
+                Witnesses
+                <span class="hint">Names or roles of anyone who observed the incident</span>
+              </label>
+              <input type="text" id="witnesses" name="witnesses" placeholder="Optional">
+            </div>
+
+            <div class="field">
+              <label for="evidence-links">
+                Evidence / links
+                <span class="hint">URLs, GitHub issues, email thread subjects, or other references</span>
+              </label>
+              <textarea id="evidence-links" name="evidence_links" maxlength="1000" placeholder="Optional — paste links or references here"></textarea>
+            </div>
+          </fieldset>
+
+          <!-- Section 4: Requested outcome -->
+          <fieldset class="form-section">
+            <legend>4. Requested Outcome</legend>
+
+            <div class="field">
+              <label>What outcome are you hoping for?</label>
+              <div class="check-group">
+                <label><input type="radio" name="desired_outcome" value="acknowledgement"> Acknowledgement that the behavior was inappropriate</label>
+                <label><input type="radio" name="desired_outcome" value="mediation"> Mediated conversation between parties</label>
+                <label><input type="radio" name="desired_outcome" value="formal_action"> Formal disciplinary action</label>
+                <label><input type="radio" name="desired_outcome" value="no_contact"> No-contact directive</label>
+                <label><input type="radio" name="desired_outcome" value="not_sure"> Not sure / I trust the ombuds team to decide</label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="additional-info">
+                Additional information
+                <span class="hint">Anything else you would like the team to know</span>
+              </label>
+              <textarea id="additional-info" name="additional_info" maxlength="1000" placeholder="Optional"></textarea>
+            </div>
+          </fieldset>
+
+          <!-- Section 5: Consent -->
+          <fieldset class="form-section">
+            <legend>5. Consent &amp; Submission</legend>
+
+            <div class="field">
+              <div class="check-group">
+                <label>
+                  <input type="checkbox" id="consent-accurate" name="consent_accurate" required>
+                  <span>The information I have provided is accurate to the best of my knowledge. <span class="required" aria-label="required">*</span></span>
+                </label>
+                <div class="field-error" id="consent-accurate-error">You must confirm the information is accurate before submitting.</div>
+
+                <label>
+                  <input type="checkbox" id="consent-process" name="consent_process">
+                  <span>I understand that this report may be shared with W3C staff and/or the ombuds team for review.</span>
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+          <div id="form-messages" role="alert" aria-live="assertive"></div>
+
+          <div class="btn-row">
+            <button type="reset">Clear form</button>
+            <button type="submit">Submit report</button>
+          </div>
+        </form>
+
+        <!-- ===== CONFIRMATION SCREEN ===== -->
+        <div id="confirmation-screen" role="region" aria-label="Submission confirmation">
+          <div class="check-icon" aria-hidden="true">&#10003;</div>
+          <h2>Report submitted</h2>
+          <p>Thank you for taking the time to report this concern. Your report has been received and will be reviewed by the W3C ombuds team.</p>
+          <div class="ref-number" id="ref-number" aria-label="Reference number"></div>
+          <p>If you provided contact details, you may receive a follow-up within 5 business days. Keep your reference number for your records.</p>
+          <button onclick="resetApp()">Submit another report</button>
+        </div>
+
+      </div><!-- /.card -->
+
+      <footer>
+        <p>
+          <a href="https://www.w3.org/policies/code-of-conduct/" target="_blank" rel="noopener">W3C Code of Ethics and Professional Conduct</a>
+          &bull;
+          <a href="https://github.com/w3c/PWETF/" target="_blank" rel="noopener">Positive Work Environment CG</a>
+          &bull;
+          <a href="https://www.w3.org/Consortium/pwe/" target="_blank" rel="noopener">PWE Task Force</a>
+        </p>
+        <p style="margin-top:0.4rem;">
+          This form does not transmit data to any server. All data remains in your browser session only.
+        </p>
+      </footer>
+
+    </div><!-- /.page-wrapper -->
+
+    <script>
+      /* =========================================================
+         Incident Report Form — client-side logic
+         No data is sent to any server. The "submission" is
+         purely local (localStorage demo + UI confirmation).
+      ========================================================= */
+
+      const form       = document.getElementById('report-form');
+      const anonToggle = document.getElementById('anonymous-toggle');
+      const contactDiv = document.getElementById('contact-fields');
+      const progressBar        = document.getElementById('progress-bar');
+      const progressBarWrapper = progressBar.parentElement;
+      const descTextarea = document.getElementById('incident-description');
+      const descCount    = document.getElementById('desc-count');
+      const msgBox       = document.getElementById('form-messages');
+      const confirmScrn  = document.getElementById('confirmation-screen');
+      const refNumberEl  = document.getElementById('ref-number');
+
+      /* ---- Anonymous toggle ---- */
+      anonToggle.addEventListener('change', () => {
+        if (anonToggle.checked) {
+          contactDiv.classList.add('hidden');
+          clearFieldError('reporter-name');
+          clearFieldError('reporter-email');
+        } else {
+          contactDiv.classList.remove('hidden');
+        }
+        updateProgress();
+      });
+
+      /* ---- Character counter ---- */
+      descTextarea.addEventListener('input', () => {
+        descCount.textContent = descTextarea.value.length;
+        updateProgress();
+      });
+
+      /* ---- Progress bar ---- */
+      function countFilledRequiredFields() {
+        let filled = 0;
+        const total = 4; // date, location, behavior, description
+
+        const date = document.getElementById('incident-date').value;
+        if (date) filled++;
+
+        const loc = document.getElementById('incident-location').value.trim();
+        if (loc) filled++;
+
+        const behaviors = document.querySelectorAll('input[name="behavior_type"]:checked');
+        if (behaviors.length > 0) filled++;
+
+        const desc = descTextarea.value.trim();
+        if (desc.length >= 20) filled++;
+
+        return { filled, total };
+      }
+
+      function updateProgress() {
+        const { filled, total } = countFilledRequiredFields();
+        const pct = Math.round((filled / total) * 100);
+        progressBar.style.width = pct + '%';
+        progressBarWrapper.setAttribute('aria-valuenow', pct);
+      }
+
+      /* Attach progress update to key fields */
+      ['incident-date', 'incident-location'].forEach(id => {
+        document.getElementById(id).addEventListener('input', updateProgress);
+      });
+      document.querySelectorAll('input[name="behavior_type"]').forEach(cb => {
+        cb.addEventListener('change', updateProgress);
+      });
+
+      /* ---- Field-level validation helpers ---- */
+      function showFieldError(fieldId, msg) {
+        const input = document.getElementById(fieldId);
+        const errEl = document.getElementById(fieldId + '-error');
+        if (input)  input.classList.add('invalid');
+        if (errEl) {
+          if (msg) errEl.textContent = msg;
+          errEl.classList.add('visible');
+        }
+      }
+
+      function clearFieldError(fieldId) {
+        const input = document.getElementById(fieldId);
+        const errEl = document.getElementById(fieldId + '-error');
+        if (input)  input.classList.remove('invalid');
+        if (errEl)  errEl.classList.remove('visible');
+      }
+
+      /* ---- Full-form validation ---- */
+      function validate() {
+        let valid = true;
+
+        /* Reporter info (only if not anonymous) */
+        if (!anonToggle.checked) {
+          const email = document.getElementById('reporter-email').value.trim();
+          const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRe.test(email)) {
+            showFieldError('reporter-email');
+            valid = false;
+          } else {
+            clearFieldError('reporter-email');
+          }
+        }
+
+        /* Incident date */
+        const date = document.getElementById('incident-date').value;
+        if (!date) {
+          showFieldError('incident-date');
+          valid = false;
+        } else {
+          clearFieldError('incident-date');
+        }
+
+        /* Location */
+        const loc = document.getElementById('incident-location').value.trim();
+        if (!loc) {
+          showFieldError('incident-location');
+          valid = false;
+        } else {
+          clearFieldError('incident-location');
+        }
+
+        /* Behavior type — at least one checkbox */
+        const behaviors = document.querySelectorAll('input[name="behavior_type"]:checked');
+        const behaviorErr = document.getElementById('behavior-type-error');
+        if (behaviors.length === 0) {
+          behaviorErr.classList.add('visible');
+          valid = false;
+        } else {
+          behaviorErr.classList.remove('visible');
+        }
+
+        /* Description */
+        const desc = descTextarea.value.trim();
+        if (desc.length < 20) {
+          showFieldError('incident-description');
+          valid = false;
+        } else {
+          clearFieldError('incident-description');
+        }
+
+        /* Consent checkbox */
+        const consent = document.getElementById('consent-accurate').checked;
+        if (!consent) {
+          showFieldError('consent-accurate');
+          valid = false;
+        } else {
+          clearFieldError('consent-accurate');
+        }
+
+        return valid;
+      }
+
+      /* ---- Generate a short reference number ---- */
+      function generateRef() {
+        const ts   = Date.now().toString(36).toUpperCase();
+        const rand = Math.random().toString(36).substring(2, 6).toUpperCase();
+        return 'PWE-' + ts + '-' + rand;
+      }
+
+      /* ---- Form submit ---- */
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        /* Hide any previous message */
+        msgBox.className = '';
+        msgBox.style.display = 'none';
+        msgBox.textContent = '';
+
+        if (!validate()) {
+          msgBox.className = 'error';
+          msgBox.textContent = 'Please correct the highlighted fields before submitting.';
+          /* Scroll to first invalid field */
+          const firstInvalid = form.querySelector('.invalid, .field-error.visible');
+          if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+
+        /* Collect form data */
+        const data = {
+          ref: generateRef(),
+          submitted_at: new Date().toISOString(),
+          anonymous: anonToggle.checked,
+          reporter_name:        anonToggle.checked ? '' : document.getElementById('reporter-name').value.trim(),
+          reporter_email:       anonToggle.checked ? '' : document.getElementById('reporter-email').value.trim(),
+          reporter_affiliation: anonToggle.checked ? '' : document.getElementById('reporter-affiliation').value.trim(),
+          incident_date:     document.getElementById('incident-date').value,
+          incident_location: document.getElementById('incident-location').value.trim(),
+          behavior_types:    Array.from(document.querySelectorAll('input[name="behavior_type"]:checked')).map(cb => cb.value),
+          incident_description: descTextarea.value.trim(),
+          parties_involved:  document.getElementById('parties-involved').value.trim(),
+          witnesses:         document.getElementById('witnesses').value.trim(),
+          evidence_links:    document.getElementById('evidence-links').value.trim(),
+          desired_outcome:   (document.querySelector('input[name="desired_outcome"]:checked') || {}).value || '',
+          additional_info:   document.getElementById('additional-info').value.trim(),
+          consent_process:   document.getElementById('consent-process').checked,
+        };
+
+        /* Store locally (demonstration only — no server involved) */
+        try {
+          const existing = JSON.parse(localStorage.getItem('pwe_reports') || '[]');
+          existing.push(data);
+          localStorage.setItem('pwe_reports', JSON.stringify(existing));
+        } catch (_) { /* localStorage may be unavailable */ }
+
+        /* Show confirmation */
+        form.style.display = 'none';
+        refNumberEl.textContent = data.ref;
+        confirmScrn.classList.add('visible');
+        confirmScrn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      /* ---- Reset / start over ---- */
+      function resetApp() {
+        form.reset();
+        descCount.textContent = '0';
+        progressBar.style.width = '0%';
+        progressBarWrapper.setAttribute('aria-valuenow', 0);
+        contactDiv.classList.remove('hidden');
+        anonToggle.checked = false;
+        msgBox.className = '';
+        msgBox.style.display = 'none';
+        form.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+        form.querySelectorAll('.field-error.visible').forEach(el => el.classList.remove('visible'));
+        form.style.display = '';
+        confirmScrn.classList.remove('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      /* ---- Inline error clearing on input ---- */
+      form.querySelectorAll('input, select, textarea').forEach(el => {
+        el.addEventListener('input', () => {
+          if (el.id) clearFieldError(el.id);
+        });
+        el.addEventListener('change', () => {
+          if (el.id) clearFieldError(el.id);
+        });
+      });
+    </script>
+  </body>
+</html>
